@@ -1,8 +1,16 @@
 <?php
-include "../functions.php";
-$dsn = "mysql:host=localhost;dbname=ecommerce";
-$user = "root";
-$password = "";
+
+include "functions.php";
+//if you want to use serverhost
+$dsn = "mysql:host=sql309.infinityfree.com;dbname=if0_34810762_ecommerce";
+$user = "if0_34810762";
+$password = "HPvfZZrBSXRtYIj";
+
+//if you want to use localhost 
+//$dsn = "mysql:localhost;dbname=ecommerce";
+//$user = "root";
+//$password = "";
+
 $option = array(
    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES UTF8"
 );

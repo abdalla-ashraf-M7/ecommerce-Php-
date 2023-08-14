@@ -146,4 +146,12 @@ function printfailed($message="none")
     echo json_encode(array("status"=>"failed","message"=>$message));
 }
 
+function sendEmail($to,$title,$body){
+     $headers= "From: support@me.com"."\n"."cc:me@gmail.com";
+    mail($to,$title,$body,$headers);
+    echo "sucess";
+   
+}
+
+
 

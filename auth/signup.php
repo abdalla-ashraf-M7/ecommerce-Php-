@@ -23,6 +23,4 @@ if ($count>0) {
         "users_verifycode" =>"0" ,
     );
         insertData($table, $data);
-
-      
 }
