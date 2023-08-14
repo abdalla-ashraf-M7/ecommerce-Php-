@@ -1,18 +1,18 @@
 <?php
 include "../connect.php";
 
-$username=security("username");
-$email=security("email");
-$password=sha1(security("password"));
-$phone=security("phone");
-$verifycode="0";
+$username=filterRequest("username");
+$email=filterRequest("email");
+$password=sha1(filterRequest("password"));
+$phone=filterRequest("phone");
+$verifycode= rand(10000,99999);
 
-$statement=$connect->prepare("SELECT * FROM `users` WHERE `users_email` =? OR `users_phone` =?");
+$statement=$con->prepare("SELECT * FROM `users` WHERE `users_email` =? OR `users_phone` =?");
 $statement->execute(array($email,$phone));
 $count=$statement->rowCount();
 
 if ($count>0) {
-    printfailed("Phone or Email has already used");
+    printFailure("Phone or Email has already used");
 }else {
     $table= 'users';
     $data = array(
@@ -20,7 +20,9 @@ if ($count>0) {
         "users_email" => $email,
         "users_password" => $password,
         "users_phone" => $phone,
-        "users_verifycode" =>"0" ,
+        "users_verifycode" => $verifycode ,
     );
+       // sendEmail($email,"hi","verification code is $verifycode");
         insertData($table, $data);
 }
+echo "succes";
