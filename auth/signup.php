@@ -25,4 +25,3 @@ if ($count>0) {
        // sendEmail($email,"hi","verification code is $verifycode");
         insertData($table, $data);
 }
-echo "succes";

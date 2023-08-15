@@ -3,9 +3,9 @@
 include "functions.php";
 
 //connect 000webhost
-$dsn = "mysql:host=localhost;dbname=id21141776_ecommerce";
-$user = "id21141776_database_ecommerce";
-$pass = "Database_ecommerce1";
+$dsn = "mysql:host=localhost;dbname=id21147163_ecommerce";
+$user = "id21147163_ecommercedatabase";
+$pass = "Ecommerce@database2";
 
 //if you want to use serverhost
 // $dsn = "mysql:host=sql309.infinityfree.com;dbname=if0_34810762_ecommerce";

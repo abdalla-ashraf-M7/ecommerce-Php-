@@ -3,5 +3,4 @@ include "connect.php";
 
 
 
-//sendEmail("keeplearning913@gmail.com","hello","it is working");
-echo "seccess";
+getAllData("users","1=1");
