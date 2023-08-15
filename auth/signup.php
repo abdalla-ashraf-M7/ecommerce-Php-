@@ -3,7 +3,8 @@ include "../connect.php";
 
 $username=filterRequest("username");
 $email=filterRequest("email");
-$password=sha1(filterRequest("password"));
+$password=sha1($_POST["password"]);
+
 $phone=filterRequest("phone");
 $verifycode= rand(10000,99999);
 
@@ -18,10 +19,11 @@ if ($count>0) {
     $data = array(
         "users_name" =>$username ,
         "users_email" => $email,
+        "users_phone" => $phone,    
         "users_password" => $password,
-        "users_phone" => $phone,
+
         "users_verifycode" => $verifycode ,
     );
-       // sendEmail($email,"hi","verification code is $verifycode");
+sendEmail($email,"hi","verification code is $verifycode");
         insertData($table, $data);
 }

@@ -1,5 +1,5 @@
 <?php
-include "connect.php";
+include "../connect.php";
 
 $email=filterRequest("email");
 $password=sha1($_POST["password"]);
@@ -17,8 +17,7 @@ if($count>0){
         printSuccess("email and password and approve");
     }
     else{
-        printFailure("You need to verify you email first");
+        printFailure("xapprove");
     }
-}else{printFailure("email or password is wrong");}
+}else{printFailure("xwrong");}
 
-//result($count,"Email and password are correct","Email or Password is Wrong");
