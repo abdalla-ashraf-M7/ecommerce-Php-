@@ -30,19 +30,3 @@ if($count2>0){
 ?>
 
 
-
-<!-- $email  = filterRequest("email") ; 
-$verfiy = filterRequest("verifycode") ; 
-
-
-$stmt = $con->prepare("SELECT * FROM users WHERE users_email =?  AND users_verifycode = ? ") ; 
-
-$stmt->execute(array ($email,$verfiy)) ; 
-
-$count = $stmt->rowCount() ; 
-
-
-
-result($count,"Verifycode is correct ","Verifycode is not correct");
-?>
- -->

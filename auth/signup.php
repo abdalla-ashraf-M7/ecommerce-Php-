@@ -24,6 +24,6 @@ if ($count>0) {
 
         "users_verifycode" => $verifycode ,
     );
-    sendEmail($email,"hello"," your verification code is $verifycode");
+    //sendEmail($email,"hello"," your verification code is $verifycode");
     insertData($table, $data);
 }

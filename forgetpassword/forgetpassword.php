@@ -15,7 +15,7 @@ result($count,"Email Found","Email Not Found");
 if ($count > 0) {
     $data = array("users_verifycode" => $newverifycode) ; 
     updateData("users" , $data , "users_email = '$email'",false);
-    sendEmail($email,"hi","new verification code is $newverifycode");
+   // sendEmail($email,"hi","new verification code is $newverifycode");
 }
 
 

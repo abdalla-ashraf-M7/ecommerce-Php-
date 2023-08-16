@@ -5,25 +5,18 @@ $email=filterRequest("email");
 $password=sha1($_POST["password"]);
 $newverifycode= rand(10000,99999);
 
-
-
-$statement=$con->prepare("SELECT * FROM `users` WHERE `users_email`=? AND `users_password`=?");
-$statement->execute(array($email,$password));
-$count=$statement->rowCount();
+$count=getData("users","users_email=? AND users_password=?",array($email,$password),false);
 if($count>0){
-    $statement2=$con->prepare("SELECT * FROM `users` WHERE `users_email`=? AND `users_password`=? AND `users_approve`=1");
-    $statement2->execute(array($email,$password));
-    $count2=$statement2->rowCount();
-    
-    if($count2>0){
-        printSuccess("email and password and approve");
+
+    $count2=getData("users","users_email=? AND users_password=? AND users_approve=1",array($email,$password),true,"mail and password and approve","xapprove");
+
+    if($count2>0)
+    {
     }
-    else{
+    else
+    {
         $data = array("users_verifycode" => $newverifycode) ; 
         updateData("users" , $data , "users_email = '$email'",false);
-        sendEmail($email,"hi","new verification code is $newverifycode");
-        printFailure("xapprove");
-        
+        //sendEmail($email,"hi","new verification code is $newverifycode");        
     }
 }else{printFailure("xwrong");}
-
