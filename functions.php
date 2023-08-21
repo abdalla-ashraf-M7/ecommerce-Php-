@@ -90,7 +90,7 @@ function insertData($table, $data, $json = true)
 }
 
 
-function updateData($table, $data, $where, $json = true)
+function updateData($table, $data, $where, $json = true,$successmess="none",$failmess="none")
 {
     global $con;
     $cols = array();
@@ -107,9 +107,9 @@ function updateData($table, $data, $where, $json = true)
     $count = $stmt->rowCount();
     if ($json == true) {
         if ($count > 0) {
-            echo json_encode(array("status" => "success"));
+            echo json_encode(array("status" => "success","message"=>$successmess));
         } else {
-            echo json_encode(array("status" => "failure"));
+            echo json_encode(array("status" => "failure","message"=>$failmess));
         }
     }
     return $count;
