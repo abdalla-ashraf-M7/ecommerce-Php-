@@ -40,7 +40,39 @@ function getAllData($table, $where = null, $values = null,$json=true)
         
     }
 }
-
+//i made this copy just for cart view page
+function getAllData2($table, $where = null, $values = null,$json=true)
+{
+    global $con;
+    $data = array();
+    if($where == null){
+        $stmt = $con->prepare("SELECT  * FROM $table ");
+    }else{
+         $stmt = $con->prepare("SELECT  * FROM $table WHERE   $where ");
+    }
+    $stmt->execute($values);
+    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $count  = $stmt->rowCount();
+    if($json==true)
+    {
+        if ($count > 0) 
+        {
+        echo json_encode(array("status" => "success", "data" => $data));
+        } else
+        {
+        echo json_encode(array("status" => "failure"));
+        }
+        return $count;
+    }else
+    {
+        if($count>0){
+            return (array("status" => "success", "data" => $data));
+        }else{
+            return (array("status" => "failure"));
+        }
+        
+    }
+}
 function getData($table, $where = null, $values = null,$json=true,$successmess="none",$failmess="none")
 {
     global $con;
