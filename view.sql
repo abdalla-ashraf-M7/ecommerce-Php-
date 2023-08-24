@@ -16,3 +16,8 @@ CREATE OR REPLACE VIEW myfav AS
 SELECT fav.* , items.*,users.users_id FROM fav
 INNER JOIN items ON items.items_id = fav.fav_items
 INNER JOIN users ON users.users_id = fav.fav_users
+
+CREATE OR REPLACE VIEW cartview as
+SELECT SUM(items.items_price) as itemprice,SUM(items.items_price-(items.items_price*items.items_discount/100)) as itempriceafterdiscount ,COUNT(cart.cart_id) as itemcount, cart.*,items.* FROM cart 
+INNER JOIN items ON items.items_id = cart.cart_items
+GROUP BY cart.cart_users , cart.cart_items

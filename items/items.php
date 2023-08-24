@@ -3,10 +3,10 @@ include "../connect.php";
  //getAllData("itemsview",null,null,true);
 $userid=filterRequest("userid");
 
-$statement=$con->prepare("SELECT items1view.*,1 as favs FROM items1view
+$statement=$con->prepare("SELECT items1view.*,1 as favs, items_price - (items_price * items_discount /100) as priceafterdiscount FROM items1view
 INNER JOIN fav ON fav.fav_items = items1view.items_id AND fav.fav_users=?
 UNION All
-SELECT * ,0 as favs FROM items1view 
+SELECT * ,0 as favs, items_price - (items_price * items_discount /100) as priceafterdiscount FROM items1view 
 WHERE items_id NOT IN(SELECT items1view.items_id FROM items1view 
                         INNER JOIN fav ON fav.fav_items=items1view.items_id AND fav.fav_users=?)");
 $statement->execute(array($userid,$userid));
