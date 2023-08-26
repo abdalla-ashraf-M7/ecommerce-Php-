@@ -17,7 +17,23 @@ SELECT fav.* , items.*,users.users_id FROM fav
 INNER JOIN items ON items.items_id = fav.fav_items
 INNER JOIN users ON users.users_id = fav.fav_users
 
-CREATE OR REPLACE VIEW cartview as
+
+
+CREATE OR REPLACE view cartview AS
 SELECT SUM(items.items_price) as itemprice,SUM(items.items_price-(items.items_price*items.items_discount/100)) as itempriceafterdiscount ,COUNT(cart.cart_id) as itemcount, cart.*,items.* FROM cart 
 INNER JOIN items ON items.items_id = cart.cart_items
-GROUP BY cart.cart_users , cart.cart_items
+WHERE cart.cart_order=0
+GROUP BY cart.cart_users , cart.cart_items,cart.cart_order;
+
+
+
+CREATE OR REPLACE view orderview AS
+SELECT orders.* , address.* FROM orders 
+left JOIN address WHERE address_id = orders_addres;
+
+
+CREATE OR REPLACE VIEW orderdetailsview AS
+SELECT SUM(items.items_price) as itemprice,SUM(items.items_price-(items.items_price*items.items_discount/100)) as itempriceafterdiscount ,COUNT(cart.cart_id) as itemcount, cart.*,items.* FROM cart 
+INNER JOIN items ON items.items_id = cart.cart_items
+WHERE cart.cart_order!=0
+GROUP BY cart.cart_users , cart.cart_items,cart.cart_order;

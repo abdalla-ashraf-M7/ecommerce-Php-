@@ -235,3 +235,54 @@ function sendEmail($to , $title , $body){
     mail($to , $title , $body , $header) ; 
 }
 
+function sendGCM($title, $message, $topic, $pageid, $pagename)
+{
+
+
+    $url = 'https://fcm.googleapis.com/fcm/send';
+
+    $fields = array(
+        "to" => '/topics/' . $topic,
+        'priority' => 'high',
+        'content_available' => true,
+
+        'notification' => array(
+            "body" =>  $message,
+            "title" =>  $title,
+            "click_action" => "FLUTTER_NOTIFICATION_CLICK",
+            "sound" => "default"
+
+        ),
+        'data' => array(
+            "pageid" => $pageid,
+            "pagename" => $pagename
+        )
+
+    );
+
+
+    $fields = json_encode($fields);
+    $headers = array(
+        'Authorization: key=' . "AAAAugK4OMY:APA91bG2Z-5Tegjb60B-OCeelmKKAKsYY-kTmGsLWJeGnG73Xg1CVPjF2gog_VnVlA705mqrBieOl97nTZ1whvm_7URzSaXbg8JfgrmS7ICmlmsFDCvInIeGUT5vXN9k4RJwEAqjTIan",
+        'Content-Type: application/json'
+    );
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+
+    $result = curl_exec($ch);
+    return $result;
+    curl_close($ch);
+}
+function NotifySaveSend($userid,$title,$message,$topic,$pageid,$pagename){
+    global $con;
+    $statment=$con->prepare("INSERT INTO `notifications`( `notifications_title`, `notifications_body`, `notifications_user`) VALUES (?,?,?)");
+    $statment->execute(array($title,$message,$userid));
+    sendGCM($title,$message,$topic,$pageid,$pagename);
+    $count=$statment->rowCount();
+    return $count;
+}
