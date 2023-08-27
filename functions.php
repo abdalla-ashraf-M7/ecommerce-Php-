@@ -73,7 +73,7 @@ function getAllData2($table, $where = null, $values = null,$json=true)
         
     }
 }
-function getData($table, $where = null, $values = null,$json=true,$successmess="none",$failmess="none")
+function getData($table, $where = null, $values = null,$json=true,$rData=false,$successmess="none",$failmess="none")
 {
     global $con;
     $data = array();
@@ -90,10 +90,20 @@ function getData($table, $where = null, $values = null,$json=true,$successmess="
                 echo json_encode(array("status" => "failure","message"=>$failmess));
             }
         }
-   
+   if($rData==true){
+    if($count>0){
+        return (array("status" => "success", "data" => $data));
+    }else{
+        return (array("status" => "failure"));
+    }
+    
+   }else{
     return $count;
+   }
+    
 }
  
+
 
 
 function insertData($table, $data, $json = true)

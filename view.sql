@@ -29,7 +29,7 @@ GROUP BY cart.cart_users , cart.cart_items,cart.cart_order;
 
 CREATE OR REPLACE view orderview AS
 SELECT orders.* , address.* FROM orders 
-left JOIN address WHERE address_id = orders_addres;
+left JOIN address ON address_id = orders_addres;
 
 
 CREATE OR REPLACE VIEW orderdetailsview AS
@@ -37,3 +37,10 @@ SELECT SUM(items.items_price) as itemprice,SUM(items.items_price-(items.items_pr
 INNER JOIN items ON items.items_id = cart.cart_items
 WHERE cart.cart_order!=0
 GROUP BY cart.cart_users , cart.cart_items,cart.cart_order;
+
+CREATE OR REPLACE VIEW topselling AS
+SELECT COUNT(cart.cart_id) AS sellcount , cart.*,items.*,items_price - (items_price * items_discount /100) AS priceafterdiscount FROM cart
+INNER JOIN items ON items.items_id = cart.cart_items
+WHERE cart.cart_order !=0
+GROUP BY cart.cart_items
+ORDER BY sellcount;
