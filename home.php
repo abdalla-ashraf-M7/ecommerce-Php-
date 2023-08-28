@@ -11,7 +11,7 @@ $cats=json_decode($cats,true);
 $items= getAllData("topselling","1=1",null,false);
 $items=json_decode($items,true); 
 
-$text= getData("text","1=1",null,false,true);
+$text= getData("text","1=1",null,false,"none","none",true);
 //$text=json_decode($text,true);//here it will return an array so we don't need to decode it
 
 if($cats["status"]=="success"){

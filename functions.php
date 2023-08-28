@@ -73,7 +73,7 @@ function getAllData2($table, $where = null, $values = null,$json=true)
         
     }
 }
-function getData($table, $where = null, $values = null,$json=true,$rData=false,$successmess="none",$failmess="none")
+function getData($table, $where = null, $values = null,$json=true,$successmess="none",$failmess="none",$rData=false)
 {
     global $con;
     $data = array();
@@ -245,7 +245,7 @@ function sendEmail($to , $title , $body){
     mail($to , $title , $body , $header) ; 
 }
 
-function sendGCM($title, $message, $topic, $pageid, $pagename)
+function sendGCM($title, $message, $topic, $pageid, $pagename,$whichapp="1")
 {
 
 
@@ -273,8 +273,8 @@ function sendGCM($title, $message, $topic, $pageid, $pagename)
 
     $fields = json_encode($fields);
     $headers = array(
-        'Authorization: key=' . "AAAAugK4OMY:APA91bG2Z-5Tegjb60B-OCeelmKKAKsYY-kTmGsLWJeGnG73Xg1CVPjF2gog_VnVlA705mqrBieOl97nTZ1whvm_7URzSaXbg8JfgrmS7ICmlmsFDCvInIeGUT5vXN9k4RJwEAqjTIan",
-        'Content-Type: application/json'
+        'Authorization: key=' ."AAAAugK4OMY:APA91bG2Z-5Tegjb60B-OCeelmKKAKsYY-kTmGsLWJeGnG73Xg1CVPjF2gog_VnVlA705mqrBieOl97nTZ1whvm_7URzSaXbg8JfgrmS7ICmlmsFDCvInIeGUT5vXN9k4RJwEAqjTIan",
+        'Content-Type: application/json',
     );
 
     $ch = curl_init();
